@@ -2,9 +2,9 @@
 #include <stdlib.h>
 #include <string.h>
 
-void start_rapl();
-void stop_rapl();
-//TESTY
+//void start_rapl();
+//void stop_rapl();
+
 // helper function for removing characters from string
 // https://stackoverflow.com/questions/5457608/how-to-remove-the-character-at-a-given-index-from-a-string-in-c
 void RemoveChars(char *s, char c)
@@ -106,11 +106,11 @@ int main(int argc, char *argv[]) {
             sortParamCopy[j] = sortParam[j];
         }
 
-        start_rapl();
+        //start_rapl();
 
         quicksort(sortParamCopy, sortParamLen);
 
-        stop_rapl();
+        //stop_rapl();
 
         // stopping compiler optimization
         if (sortParamCopy[sortParamLen - 1] < 42){

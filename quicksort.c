@@ -2,9 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-void start_rapl();
-void stop_rapl();
-
 // helper function for removing characters from string
 // https://stackoverflow.com/questions/5457608/how-to-remove-the-character-at-a-given-index-from-a-string-in-c
 void RemoveChars(char *s, char c)
