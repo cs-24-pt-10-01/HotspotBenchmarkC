@@ -5,12 +5,14 @@
 #include "fibsequence.h"
 #include "nbody.h"
 #include "quicksort.h"
+#include "mergesort.h"
 
 //void start_rapl();
 //void stop_rapl();
 
 int main(int argc, char *argv[]) {    
 
+    // The order is equivalent to the JavaScript version
     printf("starting fib!\n");
     fibsequence_bench();
     printf("done fib!\n");
@@ -22,6 +24,10 @@ int main(int argc, char *argv[]) {
     printf("starting quicksort!\n");
     quicksort_bench();
     printf("done quicksort!\n");
+
+    printf("starting mergesort!\n");
+    mergesort_bench();
+    printf("done mergesort!\n");
 
     return 0;
 }

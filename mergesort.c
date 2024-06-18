@@ -90,9 +90,9 @@ char* readFile(char* path){
 }
 
 
-int main(int argc, char *argv[]) {    
+int mergesort_bench() {    
     // getting raw merge input
-    char* mergeParamRaw = readFile(argv[2]);
+    char* mergeParamRaw = readFile("./sortdata");
 
     // removing brackets
     RemoveChars(mergeParamRaw, '[');
@@ -101,31 +101,27 @@ int main(int argc, char *argv[]) {
     int mergeParamLen = countChar(mergeParamRaw,',') + 1;
     int* mergeParam = convertToIntArr(mergeParamRaw, mergeParamLen);
 
-    int count = atoi(argv[1]);
-
-    // running benchmark
-    for (int i = 0; i < count; i++) {
-        // copying mergeParam as merge_sort is in-place
-        int* mergeParamCopy = malloc(mergeParamLen * sizeof(int));
-        for (int j = 0; j < mergeParamLen; j++) {
-            mergeParamCopy[j] = mergeParam[j];
-        }
-
-        start_rapl();
-
-        merge_sort(mergeParamCopy, mergeParamLen);
-
-        stop_rapl();
-
-        // stopping compiler optimization
-        if (mergeParamCopy[mergeParamLen - 1] < 42){
-            for (int j = 0; j < mergeParamLen; j++) {
-                printf("%d\n", mergeParamCopy[j]);
-            }
-        }
-
-        free(mergeParamCopy);
+    // copying mergeParam as merge_sort is in-place
+    int* mergeParamCopy = malloc(mergeParamLen * sizeof(int));
+    for (int j = 0; j < mergeParamLen; j++) {
+        mergeParamCopy[j] = mergeParam[j];
     }
+
+    start_rapl();
+
+    merge_sort(mergeParamCopy, mergeParamLen);
+
+    stop_rapl();
+
+    // stopping compiler optimization
+    if (mergeParamCopy[mergeParamLen - 1] < 42){
+        for (int j = 0; j < mergeParamLen; j++) {
+            printf("%d\n", mergeParamCopy[j]);
+        }
+    }
+
+    free(mergeParamCopy);
+    
 
     free(mergeParam);
 
