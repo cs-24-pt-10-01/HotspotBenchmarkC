@@ -11,6 +11,7 @@ void start_rapl_global();
 void stop_rapl_global();
 
 int main(int argc, char *argv[]) {    
+    start_rapl_global();
 
     // The order is equivalent to the JavaScript version
     printf("starting fib!\n");
@@ -28,6 +29,8 @@ int main(int argc, char *argv[]) {
     printf("starting mergesort!\n");
     mergesort_bench();
     printf("done mergesort!\n");
+
+    stop_rapl_global();
 
     return 0;
 }
