@@ -7,8 +7,8 @@
 #include "quicksort.h"
 #include "mergesort.h"
 
-//void start_rapl();
-//void stop_rapl();
+void start_rapl_global();
+void stop_rapl_global();
 
 int main(int argc, char *argv[]) {    
 
