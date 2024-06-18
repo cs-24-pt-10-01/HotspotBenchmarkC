@@ -84,7 +84,7 @@ char* readFile(char* path){
 
 int quicksort_bench() {    
     // getting raw input
-    char* inputRaw = readFile("quicksortdata");
+    char* inputRaw = readFile("./sortdata");
 
     // removing brackets
     RemoveChars(inputRaw, '[');
