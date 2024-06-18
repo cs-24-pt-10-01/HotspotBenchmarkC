@@ -1,8 +1,8 @@
 
 
 
-void start_rapl();
-void stop_rapl();
+//void start_rapl();
+//void stop_rapl();
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /* The Computer Language Benchmarks Game
@@ -144,99 +144,92 @@ static void advance(int n, double dt, double *m, __m256d *p, __m256d *v) {
     }
 }
 
-int main(int argc, char *argv[]) { // Modified to work with RAPL and with out benchmarks
-    int count = atoi(argv[1]);
-    int n = atoi(argv[2]);
+int nbody_bench() { // Modified to work with RAPL and with out benchmarks
+    int n = 50000000;
 
-    for(int i = 0; i<count; i++){
+    //start_rapl();
+    
+    double m[N];
+    __m256d p[N], v[N];
 
-        start_rapl();
-        
-        double m[N];
-        __m256d p[N], v[N];
+    // sun
+    m[0] = SOLAR_MASS;
+    p[0] = _mm256_set1_pd(0.0);
+    v[0] = _mm256_set1_pd(0.0);
 
-        // sun
-        m[0] = SOLAR_MASS;
-        p[0] = _mm256_set1_pd(0.0);
-        v[0] = _mm256_set1_pd(0.0);
+    // jupiter
+    m[1] = 9.54791938424326609e-04 * SOLAR_MASS;
+    p[1] = _mm256_setr_pd(0.0,
+        4.84143144246472090e+00,
+        -1.16032004402742839e+00,
+        -1.03622044471123109e-01);
+    v[1] = _mm256_setr_pd(0.0,
+        1.66007664274403694e-03 * DAYS_PER_YEAR,
+        7.69901118419740425e-03 * DAYS_PER_YEAR,
+        -6.90460016972063023e-05 * DAYS_PER_YEAR);
 
-        // jupiter
-        m[1] = 9.54791938424326609e-04 * SOLAR_MASS;
-        p[1] = _mm256_setr_pd(0.0,
-            4.84143144246472090e+00,
-            -1.16032004402742839e+00,
-            -1.03622044471123109e-01);
-        v[1] = _mm256_setr_pd(0.0,
-            1.66007664274403694e-03 * DAYS_PER_YEAR,
-            7.69901118419740425e-03 * DAYS_PER_YEAR,
-            -6.90460016972063023e-05 * DAYS_PER_YEAR);
+    // saturn
+    m[2] = 2.85885980666130812e-04 * SOLAR_MASS;
+    p[2] = _mm256_setr_pd(0.0,
+        8.34336671824457987e+00,
+        4.12479856412430479e+00,
+        -4.03523417114321381e-01);
+    v[2] = _mm256_setr_pd(0.0,
+        -2.76742510726862411e-03 * DAYS_PER_YEAR,
+        4.99852801234917238e-03 * DAYS_PER_YEAR,
+        2.30417297573763929e-05 * DAYS_PER_YEAR);
 
-        // saturn
-        m[2] = 2.85885980666130812e-04 * SOLAR_MASS;
-        p[2] = _mm256_setr_pd(0.0,
-            8.34336671824457987e+00,
-            4.12479856412430479e+00,
-            -4.03523417114321381e-01);
-        v[2] = _mm256_setr_pd(0.0,
-            -2.76742510726862411e-03 * DAYS_PER_YEAR,
-            4.99852801234917238e-03 * DAYS_PER_YEAR,
-            2.30417297573763929e-05 * DAYS_PER_YEAR);
+    // uranus
+    m[3] = 4.36624404335156298e-05 * SOLAR_MASS;
+    p[3] = _mm256_setr_pd(0.0,
+        1.28943695621391310e+01,
+        -1.51111514016986312e+01,
+        -2.23307578892655734e-01);
+    v[3] = _mm256_setr_pd(0.0,
+        2.96460137564761618e-03 * DAYS_PER_YEAR,
+        2.37847173959480950e-03 * DAYS_PER_YEAR,
+        -2.96589568540237556e-05 * DAYS_PER_YEAR);
 
-        // uranus
-        m[3] = 4.36624404335156298e-05 * SOLAR_MASS;
-        p[3] = _mm256_setr_pd(0.0,
-            1.28943695621391310e+01,
-            -1.51111514016986312e+01,
-            -2.23307578892655734e-01);
-        v[3] = _mm256_setr_pd(0.0,
-            2.96460137564761618e-03 * DAYS_PER_YEAR,
-            2.37847173959480950e-03 * DAYS_PER_YEAR,
-            -2.96589568540237556e-05 * DAYS_PER_YEAR);
+    // neptune
+    m[4] = 5.15138902046611451e-05 * SOLAR_MASS;
+    p[4] = _mm256_setr_pd(0.0,
+        1.53796971148509165e+01,
+        -2.59193146099879641e+01,
+        1.79258772950371181e-01);
+    v[4] = _mm256_setr_pd(0.0,
+        2.68067772490389322e-03 * DAYS_PER_YEAR,
+        1.62824170038242295e-03 * DAYS_PER_YEAR,
+        -9.51592254519715870e-05 * DAYS_PER_YEAR);
 
-        // neptune
-        m[4] = 5.15138902046611451e-05 * SOLAR_MASS;
-        p[4] = _mm256_setr_pd(0.0,
-            1.53796971148509165e+01,
-            -2.59193146099879641e+01,
-            1.79258772950371181e-01);
-        v[4] = _mm256_setr_pd(0.0,
-            2.68067772490389322e-03 * DAYS_PER_YEAR,
-            1.62824170038242295e-03 * DAYS_PER_YEAR,
-            -9.51592254519715870e-05 * DAYS_PER_YEAR);
-
-        // offset momentum
-        __m256d o = _mm256_set1_pd(0.0);
-        for (int i = 0; i < N; i++) {
-            __m256d t = _mm256_mul_pd(_mm256_set1_pd(m[i]), v[i]);
-            o = _mm256_add_pd(o, t);
-        }
-        v[0] = _mm256_mul_pd(o, _mm256_set1_pd(-1.0 / SOLAR_MASS));
-
-
-        //
-        // The following has been changed
-        //
-
-        double energy1 = energy(m, p, v);
-        if (energy1 > 10) // This should always be false, but it stops the compiler from removing it
-        {
-            printf("%.9f\n", energy1);
-        }
-        
-
-        advance(n, 0.01, m, p, v);
-
-        double energy2 = energy(m, p, v);
-        if (energy2 > 10) // This should always be false, but it stops the compiler from removing it
-        {
-            printf("%.9f\n", energy2);
-        }
-
-        stop_rapl();
+    // offset momentum
+    __m256d o = _mm256_set1_pd(0.0);
+    for (int i = 0; i < N; i++) {
+        __m256d t = _mm256_mul_pd(_mm256_set1_pd(m[i]), v[i]);
+        o = _mm256_add_pd(o, t);
     }
+    v[0] = _mm256_mul_pd(o, _mm256_set1_pd(-1.0 / SOLAR_MASS));
 
+
+    //
+    // The following has been changed
+    //
+
+    double energy1 = energy(m, p, v);
+    if (energy1 > 10) // This should always be false, but it stops the compiler from removing it
+    {
+        printf("%.9f\n", energy1);
+    }
     
 
+    advance(n, 0.01, m, p, v);
 
+    double energy2 = energy(m, p, v);
+    if (energy2 > 10) // This should always be false, but it stops the compiler from removing it
+    {
+        printf("%.9f\n", energy2);
+    }
+
+    //stop_rapl();
+    
     return 0;
 }
