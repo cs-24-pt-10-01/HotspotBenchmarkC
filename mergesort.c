@@ -2,8 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-//void start_rapl();
-//void stop_rapl();
+void start_rapl(const char*);
+void stop_rapl(const char*);
 
 // helper function for removing characters from string
 // https://stackoverflow.com/questions/5457608/how-to-remove-the-character-at-a-given-index-from-a-string-in-c
@@ -107,11 +107,9 @@ int mergesort_bench() {
         mergeParamCopy[j] = mergeParam[j];
     }
 
-    //start_rapl();
-
+    start_rapl("Mergesort");
     merge_sort(mergeParamCopy, mergeParamLen);
-
-    //stop_rapl();
+    stop_rapl("Mergesort");
 
     // stopping compiler optimization
     if (mergeParamCopy[mergeParamLen - 1] < 42){

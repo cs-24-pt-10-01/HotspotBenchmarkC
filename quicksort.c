@@ -82,6 +82,9 @@ char* readFile(char* path){
     return line;
 }
 
+void start_rapl(const char*);
+void stop_rapl(const char*);
+
 int quicksort_bench() {    
     // getting raw input
     char* inputRaw = readFile("./sortdata");
@@ -99,7 +102,9 @@ int quicksort_bench() {
         sortParamCopy[j] = sortParam[j];
     }
 
+    start_rapl("Quicksort");
     quicksort(sortParamCopy, sortParamLen);
+    stop_rapl("Quicksort");
 
     // stopping compiler optimization
     if (sortParamCopy[sortParamLen - 1] < 42){

@@ -144,10 +144,13 @@ static void advance(int n, double dt, double *m, __m256d *p, __m256d *v) {
     }
 }
 
+void start_rapl(const char*);
+void stop_rapl(const char*);
+
 int nbody_bench() { // Modified to work with RAPL and with out benchmarks
     int n = 50000000;
 
-    //start_rapl();
+    start_rapl("Nbody");
     
     double m[N];
     __m256d p[N], v[N];
@@ -229,7 +232,7 @@ int nbody_bench() { // Modified to work with RAPL and with out benchmarks
         printf("%.9f\n", energy2);
     }
 
-    //stop_rapl();
+    stop_rapl("Nbody");
     
     return 0;
 }
