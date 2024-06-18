@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "fibsequence.h"
+#include "fibhead.h"
 #include "nbody.h"
 #include "quicksort.h"
 #include "mergesort.h"
@@ -15,7 +15,7 @@ int main(int argc, char *argv[]) {
 
     // The order is equivalent to the JavaScript version
     printf("starting fib!\n");
-    fibsequence_bench();
+    fibhead_bench();
     printf("done fib!\n");
 
     printf("starting nbody!\n");

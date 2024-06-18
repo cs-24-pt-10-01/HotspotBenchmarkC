@@ -5,15 +5,18 @@ void start_rapl(const char*);
 void stop_rapl(const char*);
 
 // test method from Rosetta code
-long long fibb(long long a, long long b, int n) {
-    return (--n>0)?(fibb(b, a+b, n)):(a);
+unsigned int fibb(unsigned int a){
+    if (a <= 1){
+        return a;
+    }
+    return fibb(a-1) + fibb(a-2);
 }
 
-int fibsequence_bench() {
+int fibhead_bench() {
     int fibParam = 47;
 
     start_rapl("Fib");
-    long long int result = fibb(1,1,fibParam);
+    long long int result = fibb(fibParam);
     stop_rapl("Fib");
 
     // stopping compiler optimization

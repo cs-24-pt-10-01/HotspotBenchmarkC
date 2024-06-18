@@ -1,4 +1,4 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int fibsequence_bench();
+int fibhead_bench();
