@@ -93,29 +93,20 @@ int quicksort_bench() {
     int sortParamLen = countChar(inputRaw,',') + 1;
     int* sortParam = convertToIntArr(inputRaw, sortParamLen);
 
-    int count = atoi(argv[1]);
-
-    // running benchmark
-    for (int i = 0; i < count; i++) {
-        // copying sortParam as quicksort is in-place
-        int* sortParamCopy = malloc(sortParamLen * sizeof(int));
-        for (int j = 0; j < sortParamLen; j++) {
-            sortParamCopy[j] = sortParam[j];
-        }
-
-        start_rapl();
-
-        quicksort(sortParamCopy, sortParamLen);
-
-        stop_rapl();
-
-        // stopping compiler optimization
-        if (sortParamCopy[sortParamLen - 1] < 42){
-            printf("%d\n", sortParamCopy[0]);
-        }
-
-        free(sortParamCopy);
+    // copying sortParam as quicksort is in-place
+    int* sortParamCopy = malloc(sortParamLen * sizeof(int));
+    for (int j = 0; j < sortParamLen; j++) {
+        sortParamCopy[j] = sortParam[j];
     }
+
+    quicksort(sortParamCopy, sortParamLen);
+
+    // stopping compiler optimization
+    if (sortParamCopy[sortParamLen - 1] < 42){
+        printf("%d\n", sortParamCopy[0]);
+    }
+
+    free(sortParamCopy);
 
     free(sortParam);
 
