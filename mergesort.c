@@ -2,12 +2,12 @@
 #include <stdlib.h>
 #include <string.h>
 
-void start_rapl();
-void stop_rapl();
+//void start_rapl();
+//void stop_rapl();
 
 // helper function for removing characters from string
 // https://stackoverflow.com/questions/5457608/how-to-remove-the-character-at-a-given-index-from-a-string-in-c
-void RemoveChars(char *s, char c)
+void RemoveChars_merge(char *s, char c)
 {
     int writer = 0, reader = 0;
 
@@ -25,14 +25,14 @@ void RemoveChars(char *s, char c)
 }
 
 // helper function for counting characters
-int countChar(char* str, char c){
+int countChar_merge(char* str, char c){
     int i = 0; 
     for (i=0; str[i]; str[i]==c ? i++ : *str++);
     return i;
 }
 
 // helper function for converting string to array of int (comma seperated)
-int* convertToIntArr(char*str, int len){
+int* convertToIntArr_merge(char*str, int len){
     int* arr = malloc(len * sizeof(int));
     char* token = strtok(str, ",");
     int i = 0;
@@ -71,7 +71,7 @@ void merge_sort (int *a, int n) {
 }
 
 // function for reading file, inspired by https://stackoverflow.com/questions/3501338/c-read-file-line-by-line
-char* readFile(char* path){
+char* readFile_merge(char* path){
     FILE * fp;
     char * line = NULL; // the result
     size_t len = 0;
@@ -92,14 +92,14 @@ char* readFile(char* path){
 
 int mergesort_bench() {    
     // getting raw merge input
-    char* mergeParamRaw = readFile("./sortdata");
+    char* mergeParamRaw = readFile_merge("./sortdata");
 
     // removing brackets
-    RemoveChars(mergeParamRaw, '[');
-    RemoveChars(mergeParamRaw, ']');
+    RemoveChars_merge(mergeParamRaw, '[');
+    RemoveChars_merge(mergeParamRaw, ']');
 
-    int mergeParamLen = countChar(mergeParamRaw,',') + 1;
-    int* mergeParam = convertToIntArr(mergeParamRaw, mergeParamLen);
+    int mergeParamLen = countChar_merge(mergeParamRaw,',') + 1;
+    int* mergeParam = convertToIntArr_merge(mergeParamRaw, mergeParamLen);
 
     // copying mergeParam as merge_sort is in-place
     int* mergeParamCopy = malloc(mergeParamLen * sizeof(int));
@@ -107,11 +107,11 @@ int mergesort_bench() {
         mergeParamCopy[j] = mergeParam[j];
     }
 
-    start_rapl();
+    //start_rapl();
 
     merge_sort(mergeParamCopy, mergeParamLen);
 
-    stop_rapl();
+    //stop_rapl();
 
     // stopping compiler optimization
     if (mergeParamCopy[mergeParamLen - 1] < 42){
