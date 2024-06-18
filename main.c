@@ -2,12 +2,17 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "fibsequence.h"
 #include "quicksort.h"
 
 //void start_rapl();
 //void stop_rapl();
 
 int main(int argc, char *argv[]) {    
+
+    printf("starting fib!\n");
+    fibsequence_bench();
+    printf("done fib!\n");
 
     printf("starting quicksort!\n");
     quicksort_bench();
