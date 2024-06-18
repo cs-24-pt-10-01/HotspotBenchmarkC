@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void start_rapl_global();
-void stop_rapl_global();
+void start_rapl();
+void stop_rapl();
 
 // test method from Rosetta code
 long long fibb(long long a, long long b, int n) {
@@ -12,9 +12,9 @@ long long fibb(long long a, long long b, int n) {
 int fibsequence_bench() {
     int fibParam = 47;
 
-    start_rapl_global();
+    start_rapl();
     long long int result = fibb(1,1,fibParam);
-    stop_rapl_global();
+    stop_rapl();
 
     // stopping compiler optimization
     if (result < 42){
