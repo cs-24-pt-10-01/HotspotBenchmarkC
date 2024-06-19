@@ -15,9 +15,9 @@ unsigned int fibb(unsigned int a){
 int fibhead_bench() {
     int fibParam = 47;
 
-    start_rapl("Fib");
+    start_rapl("Fibhead");
     long long int result = fibb(fibParam);
-    stop_rapl("Fib");
+    stop_rapl("Fibhead");
 
     // stopping compiler optimization
     if (result < 42){
