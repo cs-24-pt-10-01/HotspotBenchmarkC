@@ -14,21 +14,21 @@ int main(int argc, char *argv[]) {
     //start_rapl("Main");
 
     // The order is equivalent to the JavaScript version
-    printf("starting fib!\n");
+    //printf("starting fib!\n");
     fibhead_bench();
-    printf("done fib!\n");
+    //printf("done fib!\n");
 
-    printf("starting nbody!\n");
+    //printf("starting nbody!\n");
     nbody_bench();
-    printf("done nbody!\n");
+    //printf("done nbody!\n");
 
-    printf("starting quicksort!\n");
+    //printf("starting quicksort!\n");
     quicksort_bench();
-    printf("done quicksort!\n");
+    //printf("done quicksort!\n");
 
-    printf("starting mergesort!\n");
+    //printf("starting mergesort!\n");
     mergesort_bench();
-    printf("done mergesort!\n");
+    //printf("done mergesort!\n");
 
     //stop_rapl("Main");
 
