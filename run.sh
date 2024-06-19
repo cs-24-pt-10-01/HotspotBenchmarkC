@@ -3,5 +3,5 @@ gcc -fomit-frame-pointer -march=ivybridge main.c quicksort.c fibhead.c nbody.c m
 
 for i in {1..10}
 do
-   node ./main
+   ./a.out
 done
